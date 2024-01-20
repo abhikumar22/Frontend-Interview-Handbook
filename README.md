@@ -1,4 +1,4 @@
 # Frontend-Interview-Handbook
 All things frontend
 
-Plus and Play simply !!!!
+Plug and Play simply !!!!
