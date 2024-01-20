@@ -1,0 +1,11 @@
+.Container{
+  display: flex;
+  .Each__Board__Container{
+    flex:1;
+    border: 1px solid black;
+    padding: 1%;
+    .Each__Board__Content{
+      padding: 1%;
+    }
+  }
+}

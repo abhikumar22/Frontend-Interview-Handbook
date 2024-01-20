@@ -1,0 +1,14 @@
+.Container{
+  border: 2px solid red;
+  padding: 3%;
+  margin: 1%;
+  .Card__Name{
+    padding: 10% 15%;
+    background: none;
+  }
+  span{
+    background: red;
+    cursor: pointer;
+    padding: 1% 5%;
+  }
+}

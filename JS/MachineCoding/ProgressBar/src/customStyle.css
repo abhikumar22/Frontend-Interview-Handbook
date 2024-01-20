@@ -1,0 +1,20 @@
+.Wrapper {
+  .progressBar {
+    margin: 0 auto;
+    border: 2px solid black;
+    width: 50%;
+    height: 50px;
+  }
+  .box {
+    background-color: red;
+    width: 0%;
+    height: 100%;
+  }
+  .buttonWrapper {
+    margin: 0 auto;
+    margin-top: 1em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

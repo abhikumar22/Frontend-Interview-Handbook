@@ -1,0 +1,21 @@
+.body_container{
+    position: relative;
+}
+.modal_container{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #4e48488c;
+    visibility: hidden;
+}
+
+#close_button{
+    position: fixed;
+    right: 10px;
+    top: 10px;
+    cursor: pointer;
+    z-index: 11;
+    font-size: 1.5em;
+}

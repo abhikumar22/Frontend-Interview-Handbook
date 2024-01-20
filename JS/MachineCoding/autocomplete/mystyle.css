@@ -1,0 +1,9 @@
+input{
+    width: 300px;
+}
+.autocomplete_container{
+    width: 300px;
+    background: red;
+    height: 500px;
+    margin: 5px 0px 0px 0px;
+}
