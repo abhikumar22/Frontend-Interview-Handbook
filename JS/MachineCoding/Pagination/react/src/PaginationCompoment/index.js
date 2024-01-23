@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, Children } from "react";
+import { useEffect, useRef } from "react";
 import useVisiblity from "../hook/visibility";
 
 export default function PaginationCompoment({ cbOnVisible, children }) {
