@@ -1,4 +1,4 @@
-(function SingleTon() {
+const Singleton = (function SingleTon() {
     let instance;
 
     const createInstance = () => {
@@ -16,7 +16,7 @@
     }
 })()
 
-const newObj1 = SingleTon().getInstance();
-const newObj2 = SingleTon().getInstance();
+const newObj1 = Singleton.getInstance();
+const newObj2 = Singleton.getInstance();
 console.log(newObj1==newObj2)
 console.log(newObj1===newObj2)
