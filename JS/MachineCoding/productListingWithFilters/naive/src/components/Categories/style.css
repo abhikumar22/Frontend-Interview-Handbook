@@ -1,0 +1,6 @@
+.category {
+  margin: 1em;
+  &.isSelected {
+    outline: 2px solid black;
+  }
+}

@@ -139,21 +139,72 @@
 
 // }
 
-const nLength = 6;
-function fibonacciSeries(dataArr) {
-    let index = 0;
-    let finalArr = [];
-    while (index <= dataArr) {
-        if(index===0){
-            finalArr.push(0)
-        }else if(index===1){
-            finalArr.push(1)
-        }else{
+// const nLength = 6;
+// function fibonacciSeries(dataArr) {
+//     let index = 0;
+//     let finalArr = [];
+//     while (index <= dataArr) {
+//         if(index===0){
+//             finalArr.push(0)
+//         }else if(index===1){
+//             finalArr.push(1)
+//         }else{
 
-        }
-    }
+//         }
+//     }
 
-}
+// }
 
-const res = fibonacciSeries(nLength);
+// const res = fibonacciSeries(nLength);
 
+
+// If number present then return Index
+// otherwise return the index it should be
+// const arr2 = [1, 4, 6, 7, 8, 11]
+// const target = 2;
+
+// const getTargetIndex = (arr, targetElement) => {
+//     let lower = 0;
+//     let higher = arr.length - 1;
+//     let finalEle = null;
+//     let mid;
+//     while (lower <= higher) {
+//         mid = Math.floor((lower + higher) / 2);
+//         if (arr[mid] === targetElement) {
+//             finalEle = mid;
+//             break;
+//         }
+//          if (arr[mid] > target) {
+//             higher = mid - 1
+//         } else {
+//             lower = mid + 1
+//         }
+//     }
+//     if (finalEle === null) {
+//         finalEle = mid;
+//     }
+//     return finalEle;
+// };
+
+// const result = getTargetIndex(arr2, target);
+// console.log(result);
+
+// Design function compose
+// const square = (x) => x * x;
+// const sum10 = (x) => x + 10;
+
+// const compose = (...fns)=>{
+//     let result = 1;
+//     return function(x){
+//         fns.forEach((currFn,indx)=>{
+//             if(indx===0){
+//                 result = currFn(x);
+//             }else{
+//                 result = currFn(result);
+//             }
+//         })
+//     }
+// }
+
+// const composeJS = compose(square,sum10,sum10);
+// const res = composeJS(20);

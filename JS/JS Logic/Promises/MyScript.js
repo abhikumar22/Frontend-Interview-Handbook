@@ -1,5 +1,9 @@
 
 
+// Promise is an object which represents eventual completeion of async operations.
+// object that represent the result.
+// in promise chaining, we have to chain the every promise while returning, otherwise we can lose some data in the chaining
+
 // custom promise
 /*
 this.data = ? bears data of each promise chain
