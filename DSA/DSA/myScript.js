@@ -208,3 +208,90 @@
 
 // const composeJS = compose(square,sum10,sum10);
 // const res = composeJS(20);
+
+
+// remove all string and its keys if empty
+// sample res = {"a":2,"k":{"a":2,"ap":44,"kk":{"ap":44,"j":{"d":{"kk":68}}}}}
+// const objj = {
+//     a: 2,
+//     k: {
+//       ap: 44,
+//       kk: {
+//         j: {
+//           d: {
+//             kk: 68,
+//             k: 'sttt'
+//           }
+//         }
+//       }
+//     }
+//   };
+//   const massageObj = (obj) => {
+//     let finalObj = {};
+//     for (const k in obj) {
+//       const currentValue = obj[k];
+  
+//       if (typeof obj[k] === 'number') {
+//         finalObj[k] = currentValue;
+//       }
+  
+//       if (typeof obj[k] != 'number'
+//         && typeof currentValue === 'object'
+//         && !Array.isArray(currentValue)
+//       ) {
+//         const res = massageObj(currentValue);
+//         if (Object.keys(res).length > 0) {
+//           finalObj[k] = {
+//             ...finalObj,
+//             ...massageObj(currentValue)
+//           }
+//         }
+//       }
+//     }
+//     return finalObj
+//   }
+  
+//   console.log(massageObj(objj))
+
+
+// Deepclone
+// Logic to iterate each element and add if for all cases, like numbers, string etc
+
+// const obj = {
+//     a: 123,
+//     b: [4, 1, 2],
+//     c: {
+//       ff: {
+//         name: "abhishek",
+//         address: {
+//           first: "delhi",
+//           second: "ckp"
+//         }
+//       }
+//     }
+//   };
+  
+//   const deepclone = (objj) => {
+//     let finalObj = {};
+//     for (objKey in objj) {
+  
+//       let currValue = objj[objKey];
+//       let typeOfObj = typeof currValue;
+  
+//       if (typeOfObj === 'object' && !Array.isArray(currValue)) {
+//         finalObj[objKey] = deepclone(currValue);
+//       }
+  
+//       if (typeOfObj === 'object' && Array.isArray(currValue)) {
+//         finalObj[objKey] = currValue.map((x) => x);
+//       }
+  
+//       if (typeOfObj === 'string' || typeOfObj === 'number') {
+//         finalObj[objKey] = currValue;
+//       }
+  
+//     }
+//     return finalObj;
+//   }
+  
+//   console.log(deepclone(obj))
