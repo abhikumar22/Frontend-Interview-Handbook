@@ -1,25 +1,27 @@
-"use strict"
-console.log("obj");
-function getF(){
-    let k = 1;
-    console.log("getF",)
-}
-getF();
+// "use strict"
+// console.log("obj");
+// var k = 2
+// function getF(){
+//     let k = 1;
+//     console.log("getF",this.k)
+// }
+// getF();
 const obj = {
     name: "abhishek",
     getName: function () {
         // const name = "abhi inner"
-        console.log("Hi i'm ", this)
+        console.log("Hi i'm normal function", this)
     },
     getName2: () => {
         // const name = "abhi inner"
-        console.log("Hi i'm ", this)
-    }
+        (function num() {
+            console.log("Hi i'm arrow function ", this) 
+        })()    }
 }
-// obj.getName();
+obj.getName();
 obj.getName2();
-// const kk = obj.getName
-const kk2 = obj.getName2
-// kk();
-kk2();
+// // const kk = obj.getName
+// const kk2 = obj.getName2
+// // kk();
+// kk2();
 
