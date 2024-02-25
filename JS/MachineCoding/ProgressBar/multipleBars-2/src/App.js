@@ -1,3 +1,5 @@
+// bar progress should is current workes n bars is completed
+
 import { useRef, useState } from "react";
 import ProgressBarCard from './components/ProgressBarCard';
 
@@ -40,7 +42,6 @@ const App = () => {
     setProgressBars(progressBarRef.current);
   };
 
-  console.log("***** worker state",currWorkerState);
   return (
     <div>
       hello abhishek

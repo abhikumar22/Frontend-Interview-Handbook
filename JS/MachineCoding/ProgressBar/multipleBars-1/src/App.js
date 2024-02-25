@@ -1,3 +1,4 @@
+// bar progress should start once previous bar is completed
 import { useRef, useState } from "react";
 import ProgressBarCard from './components/ProgressBarCard';
 
