@@ -1,0 +1,10 @@
+.accodian{
+    border: 1px solid grey;
+    margin: 1em;
+    padding: .5em;
+    cursor: pointer;
+}
+
+.desc{
+    display: none;
+}
