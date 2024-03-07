@@ -1,6 +1,26 @@
 /* Variant 1: Iterative Solution */
 let arr = [1, [34], [12, 3, [5, 6, [88]], [4]], [77]];
 
+// const arrCust = [[1],2,[4,[66],[43]],[54,55,23]];
+
+// const flattnArray = (arr) =>{
+//   let flt = [];
+  
+//   function flat(hereArr){
+//     hereArr.forEach((currArr, indx)=>{
+//         if(Array.isArray(currArr)){
+//           flat(currArr);
+//         }else{
+//           flt.push(currArr);
+//         }
+//     })
+//   }
+//   flat(arr);
+//   return flt
+// }
+
+// console.log(flattnArray(arrCust));
+
 
 const flattenArray = (orgArr) => {
     const res = [];
