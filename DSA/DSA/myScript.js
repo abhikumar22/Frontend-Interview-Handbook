@@ -384,3 +384,271 @@
 //     .catch((error) => {
 //       console.log("**** error ", error)
 //     })
+
+
+
+// version with promise type 1
+
+// Execute N task in series with K limit
+// Todo to do cleanup and return once only
+
+// maplimit function to execute async task
+
+// const delayFn = (delay) => {
+//     return function () {
+//         console.log("start ", delay)
+//         return new Promise((resolve, reject) => {
+//             setTimeout(() => {
+//                 resolve(delay)
+//             }, delay)
+//         })
+//     }
+// }
+// const allTasks = [
+//     delayFn(3000),
+//     delayFn(3000),
+
+//     delayFn(1000),
+//     delayFn(1000),
+
+//     delayFn(2000),
+//     delayFn(2000),
+// ];
+
+// const executeInParallel = (allTasks, limit) => {
+//     let taskArr = [...allTasks];
+//     let results = [];
+//     let queueTask = [];
+//     let taskExecuting = 0;
+
+//     return new Promise((resolve, reject) => {
+//         function executeTasks(eachTasks, res) {
+//             eachTasks()
+//                 .then((data) => {
+//                     taskArr.shift();
+//                     results.push(data);
+//                     taskExecuting--;
+//                     if (results.length < allTasks.length) {
+//                         let pendingTask = [...queueTask];
+//                         queueTask = [];
+//                         startTask(pendingTask)
+//                     } else {
+//                         console.log("**** finallyyyyyyyyyyy", { time: new Date() }, { results });
+//                         resolve(results);
+//                         return;
+//                     }
+//                 })
+//         }
+//         function startTask(taskToExecute) {
+//             // return new Promise((resolve, reject) => {
+//             taskToExecute.forEach(element => {
+//                 if (taskExecuting < limit) {
+//                     taskExecuting++;
+//                     executeTasks(element);
+//                 }
+//                 else {
+//                     queueTask.push(element);
+//                 }
+//             });
+//             // })
+//         }
+//         console.log("**** Start", new Date())
+//         startTask(taskArr);
+//     })
+// }
+
+// executeInParallel(allTasks, 2)
+//     .then((data) => {
+//         console.log("**** then ", data)
+//     })
+//     .catch((error) => {
+//         console.log("**** error ", error)
+//     })
+
+
+// version with promise type 2
+/*
+
+// Execute N task in series with K limit
+// Todo to do cleanup and return once only
+
+// maplimit function to execute async task
+
+const delayFn = (delay) => {
+    return function () {
+        console.log("start ", delay)
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve(delay)
+            }, delay)
+        })
+    }
+}
+const allTasks = [
+    delayFn(3000),
+    delayFn(3000),
+
+    delayFn(1000),
+    delayFn(1000),
+
+    delayFn(2000),
+    delayFn(2000),
+];
+
+const executeInParallel = (allTasks, limit) => {
+    let taskArr = [...allTasks];
+    let results = [];
+    let queueTask = [];
+    let taskExecuting = 0;
+
+    function executeTasks(eachTasks, resolve) {
+        eachTasks()
+            .then((data) => {
+                taskArr.shift();
+                results.push(data);
+                taskExecuting--;
+                if (results.length < allTasks.length) {
+                    let pendingTask = [...queueTask];
+                    queueTask = [];
+                    startTask(pendingTask, resolve)
+                } else {
+                    console.log("**** finallyyyyyyyyyyy", { time: new Date() }, { results });
+                    resolve(results);
+                    return;
+                }
+            })
+    }
+    function startTask(taskToExecute, resolve) {
+        // return new Promise((resolve, reject) => {
+        taskToExecute.forEach(element => {
+            if (taskExecuting < limit) {
+                taskExecuting++;
+                executeTasks(element, resolve);
+            }
+            else {
+                queueTask.push(element);
+            }
+        });
+        // })
+    }
+
+    return new Promise((resolve, reject) => {
+        startTask(taskArr, resolve);
+    })
+}
+
+executeInParallel(allTasks, 2)
+    .then((data) => {
+        console.log("**** then ", data)
+    })
+    .catch((error) => {
+        console.log("**** error ", error)
+    })
+*/
+
+
+
+/**
+ * 
+ * 
+ * 
+ * 
+ * MAplimit
+ * 
+ * 
+ * 
+ * const newArr = [1, 2, 3, 4, 5, 6]
+const asycnBatchLimit = 2;
+// const newArr2 = [[1, 2], [3, 4], [5, 6]]
+
+const asyncFunction = (x) => {
+    // return () => {
+    return new Promise((resolve, reject) => {
+        console.log("**** start", x);
+        setTimeout(() => {
+            reject(x * 2)
+        }, 2000);
+    })
+    // }
+}
+
+
+function customMap(arr, asyncLimit, fn, cbc) {
+    function createBatch(arrList, limit) {
+        let arrayInitial = [...arrList];
+        let batches = [];
+        let count = 0;
+        let temp = [];
+
+        while ((arrayInitial.length > 0) || temp.length > 0) {
+            if (count === limit) {
+                batches.push(temp)
+                temp = [];
+                count = 0;
+            } else {
+                let ele = arrayInitial.shift();
+                if (ele) {
+                    temp.push(ele);
+                }
+                count++;
+            }
+        }
+
+        return batches;
+
+    }
+    let result = [];
+    let finalArr = createBatch(arr, asyncLimit); // [[1, 2], [3, 4], [5, 6]]
+
+
+
+    function executeTask(currBatch) { //[1, 2]
+        let count = 0;
+        let currBatchResponse = [];
+        return new Promise((resolve, reject) => {
+            while (count < currBatch.length) {
+                fn(currBatch[count]).then((data) => {
+                    currBatchResponse.push(data);
+                    if (currBatchResponse.length === currBatch.length) {
+                        resolve(currBatchResponse);
+                    }
+                }).catch((err)=>{
+                    reject(err);
+                })
+                count++;
+            };
+        })
+    };
+
+    async function startTask(arrList) {
+        let count = 0;
+        while (count < arrList.length) {
+            let currentBatch = arrList[count];
+            let res;
+            try {
+                res = await executeTask(currentBatch);
+            } catch (error) {
+                cbc(error);
+                return;
+            }
+            result.push(...res);
+            count++;
+        }
+        cbc(false,result);
+
+    }
+
+    startTask(finalArr);
+
+
+
+}
+
+customMap(newArr, asycnBatchLimit, asyncFunction, (err, result) => {
+    if (!err) {
+        console.log("success", result)
+    } else {
+        console.log("error", err)
+    }
+})
+ */

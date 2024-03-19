@@ -235,3 +235,73 @@ customPromiseAllSettled([first(), second(), third()]).then((dd) => {
 
 // })
 
+function MyPromise(executor) {
+    let isRejected = false;
+    let isFulfilled = false;
+    let isCalled = false;
+    let thenHandler = null;
+    let catchHandler = null;
+    let value = null;
+
+    function resolve(data) {
+        isFulfilled = true;
+        value = data;
+
+        if (thenHandler != null && !isCalled) {
+            thenHandler(value);
+            isCalled = true;
+        }
+    }
+    function reject(data) {
+        isRejected = true;
+        value = data;
+
+        if (catchHandler != null && !isCalled) {
+            catchHandler(value);
+            isCalled = true;
+        }
+    }
+
+    this.then = function(cbc){
+        thenHandler = cbc;
+
+        if(isFulfilled === true && !isCalled){
+            thenHandler(value);
+            isCalled = true
+        }
+        return this;
+    }
+
+    this.catch = function(cbc){
+        catchHandler = cbc;
+
+        if(isRejected === true && !isCalled){
+            catchHandler(value);
+            isCalled = true
+        }
+        return this;
+    }
+    executor(resolve,reject)
+};
+myPromise.resolve = (val)=>{
+    return new myPromise(function executor(resolve,reject) {
+        resolve(val);
+    })
+}
+myPromise.reject = (val)=>{
+    return new myPromise(function executor(resolve,reject) {
+        reject(val);
+    })
+}
+
+
+let k = new MyPromise((resolve,reject)=>{
+    setTimeout(() => {
+        resolve(5)
+    }, 2000);
+}).then((data)=>{
+    console.log("**** data",data);
+}).catch(data=>{
+    console.log("**** catch",data);
+
+})

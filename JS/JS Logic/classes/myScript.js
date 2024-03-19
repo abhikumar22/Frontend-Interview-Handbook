@@ -63,65 +63,72 @@
 // myStack.traverse();
 
 /* Stack using Classes */
-const PROMISE_STATE = {
-    PENDING: 'Pending',
-    FULFILLED: 'Fulfilled',
-    REJECTED: 'Rejected',
-    RESOLVED: 'Resolved'
+const STATE = {
+    FULFILLED: "FULFILLED",
+    REJECTED: "REJECTED",
+    PENDING: "PENDING"
 }
 
-class CustomPromise {
+class MyPromise {
     constructor(executor) {
-        this.state = PROMISE_STATE.PENDING;
-        this.value = null;
-        this.reason = null;
-        this.thenCB;
-        this.catchCB;
-        this.finallyCB;
-        const res = dataValue => {
-            if (this.thenCB) {
-                this.state = PROMISE_STATE.FULFILLED;
-                this.thenCB(dataValue);
-            } else {
-                this.value = dataValue;
-            }
-            if (this.finallyCB) {
-                this.finallyCB()
-            }
-        }
-        const rej = errorValue => {
-            if (this.catchCB) {
-                this.state = PROMISE_STATE.REJECTED
-                this.catchCB(errorValue);
-            } else {
-                this.reason = errorValue;
-            }
-            if (this.finallyCB) {
-                this.finallyCB()
-            }
-        }
-        try {
-            executor(rej, res);
-        } catch (err) {
-            rej(err)
-        }
-    }
-    then = (cb) => {
-        if (this.state === PROMISE_STATE.PENDING && this.value) {
-            this.state = PROMISE_STATE.FULFILLED;
+        let result = null;
+        let currState = STATE.PENDING;
+        let successHandlers = [];
+        let rejectHandlers = [];
 
+
+        function resolve(data) {
+            if (currState !== STATE.PENDING) return;
+            result = data;
+            currState = STATE.FULFILLED;
+            // console.log("**** resolve", {data}, {successHandlers});
+            successHandlers.forEach((curr) => {
+                curr(result);
+            });
+        }
+        function reject(data) {
+            if (currState !== STATE.PENDING) return;
+
+            result = data;
+            currState = STATE.REJECTED;
+
+            rejectHandlers.forEach((curr) => {
+                curr(result);
+            });
+        }
+
+        this.then = function (cbc) {
+            if (currState === STATE.FULFILLED) {
+                cbc(result);
+            } else {
+                successHandlers.push(cbc);
+            }
+        };
+        this.catch = function (cbc) {
+            if (currState === STATE.REJECTED) {
+                cbc(result);
+            } else {
+                rejectHandlers.push(cbc);
+            }
+        };
+
+        try {
+            executor(resolve, reject);
+        } catch (error) {
+            console.log("**** error", error);
         }
 
     }
 }
-const x = 12;
-const myres = new Promise((resolve, reject) => {
-    if (x > 10) {
-        resolve(true);
-    } else {
-        reject(false)
-    }
+const res = new MyPromise((resolve, reject) => {
+    setTimeout(() => {
+        resolve(5)
+    }, 2000);
+}).then((data) => {
+    console.log("*** then", data);
+}).then((data) => {
+    console.log("*** then", data);
 })
-myres.then((data) => {
-    console.log("**** data", data);
-})
+// .catch((data)=>{
+//     console.log("*** err", data);
+// })
