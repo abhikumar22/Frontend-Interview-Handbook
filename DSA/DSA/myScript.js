@@ -652,3 +652,82 @@ customMap(newArr, asycnBatchLimit, asyncFunction, (err, result) => {
     }
 })
  */
+
+
+
+/**
+ * Type New maplimit to run cbc for each ele
+ * 
+ * const arr = [1, 2, 3, 4, 5]
+
+const asyncFn = (id, cbc) => {
+    const randomRequestTime = Math.floor(Math.random() * 100) + 1000;
+    setTimeout(() => {
+        cbc(`USER..${id}`);
+    }, randomRequestTime);
+}
+const mapLimit = (inputs, limit, iterateeFn, callback) => {
+    const subArrays = (orgArr, limit) => {
+        let subArr = [];
+        let arr = [...orgArr];
+        let tmp = [];
+        let count = 0;
+
+        while (arr.length > 0 || tmp.length > 0) {
+            if (count === limit) {
+                subArr.push(tmp);
+                tmp = [];
+                count = 0;
+            } else {
+                let ele = arr.shift()
+                if (ele) {
+                    tmp.push(ele);
+                }
+                count++;
+            }
+        }
+        return subArr;
+    }
+    let arr = [...subArrays(inputs, limit)];
+    let results = [];
+
+
+    async function executeTask(currBatch) {
+        let count = 0;
+        let res = [];
+        return new Promise((resolve, reject) => {
+            while (count < currBatch.length) {
+                iterateeFn(currBatch[count], (data) => {
+                    res.push(data);
+
+                    if (res.length === currBatch.length) {
+                        results.push(...res);
+                        resolve();
+                    }
+                })
+                count++;
+            }
+        })
+
+    }
+    async function startTasks(allTasks) {
+        let arrOrg = [...allTasks];
+        while (!!(arrOrg.length > 0)) {
+            await executeTask(arrOrg.shift());
+            console.log("Each batch result ->>", results);
+        }
+        callback(results);
+    }
+    startTasks(arr);
+    // return arr;
+
+}
+let k = mapLimit(arr, 2, asyncFn, (result) => {
+    console.log("****** Result final ::", result);
+})
+
+
+ * 
+ * 
+ * 
+ */
