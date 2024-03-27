@@ -1,4 +1,4 @@
-import {useCallback,useMemo} from 'react';
+import { useCallback, useMemo } from 'react';
 
 const App = ({ cart, setCart }) => {
 
@@ -14,7 +14,7 @@ const App = ({ cart, setCart }) => {
     };
 
     const handleRemove = ({ id, productName, mrp }) => {
-       
+
         let temp = [...cart];
         const isPresent = temp.findIndex((x) => x.id === id);
 
@@ -28,14 +28,14 @@ const App = ({ cart, setCart }) => {
             setCart([...temp]);
         }
     }
-    
+
     const calculatePrice = () => {
-        let price = (cart && cart.length>0)? cart.reduce(((acc, inc) => acc + inc.mrp * inc.quantity), 0):0;
+        let price = (cart && cart.length > 0) ? cart.reduce(((acc, inc) => acc + inc.mrp * inc.quantity), 0) : 0;
         return price;
     }
     // const cartValue = calculatePrice();
 
-    const totalPrice = useMemo(calculatePrice(),[cart]);
+    const totalPrice = useMemo(calculatePrice(), [cart]);
 
 
     return { handleAdd, handleRemove, totalPrice };

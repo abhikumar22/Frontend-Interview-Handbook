@@ -176,6 +176,108 @@ let k = mapLimit(arr, 2, asyncFn, (result) => {
 })
 
 
+// attemp2
+
+const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+
+const mapLimit = (arrList, limit, fn) => {
+    const massageArr = (arrNum) => {
+        let count = 0;
+        let counter = 0;
+
+        let resSubArrs = [];
+        let temp = [];
+        const checkBreach = () => {
+            return !!(temp.length === limit)
+        }
+        while (counter <= arrNum.length) {
+            if (checkBreach() || counter === arrNum.length) {
+                resSubArrs.push(temp);
+                temp = [];
+            }
+            console.log("*** hio", count);
+            if (count <= limit) {
+                temp.push(arrNum[counter]);
+                count++;
+                if (checkBreach()) {
+                    resSubArrs.push(temp);
+                    temp = []
+                    count = 0;
+                }
+            }
+            counter++;
+        };
+        return resSubArrs;
+    };
+    let worker = 0;
+    let finalArr = [...massageArr(arrList)];
+    let finalResults = [];
+
+    return new Promise((resolve2, reject2) => {
+        async function executeTask(currBatch) {
+            let counter = 0;
+            let currResult = [];
+
+            return new Promise((resolve, reject) => {
+                while (counter < currBatch.length) {
+                    let num = currBatch[counter];
+                    fn(num, function (err, num) {
+                        currResult.push(num);
+
+                        if(err){
+                            reject("Rejected");
+                        }
+
+                        if (currResult.length === currBatch.length) {
+                            console.log("**** ", { currResult }, { currBatch });
+                            finalResults.push(currResult)
+                            resolve(currResult);
+                        }
+                    })
+                    counter++;
+                }
+            })
+        }
+
+        async function startTask(batches) {
+            let counter = 0;
+
+            while (counter < batches.length) {
+                try {
+                    await executeTask(batches[counter]); 
+                } catch (error) {
+                    reject2("Rejected")
+                    return
+                }
+                counter++
+                console.log("**** hi");
+            }
+            resolve2(finalResults)
+
+        }
+        startTask(finalArr);
+    })
+}
+
+mapLimit(arr, 3, function (num, cbc) {
+    const randomRequestTime = Math.floor(Math.random() * 100) + 1000;
+    setTimeout(function () {
+        num = num + 1;
+        console.log("* num",num);
+        if(num===2){
+            cbc(true, num);
+        }else{
+            cbc(null, num)
+        }
+    }, randomRequestTime);
+}).then((dd) => {
+    console.log("****then", dd);
+}).catch((dd) => {
+    console.log("****dd", dd);
+})
+
+
  * 
  * 
  * 
