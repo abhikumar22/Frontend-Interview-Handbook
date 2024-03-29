@@ -65,3 +65,47 @@ function flatten(value) {
 
 const response = flatten(arr2);
 console.log(response)
+
+
+
+/**
+ * 
+ * 
+ * 
+ * const arr = [[1, 4], 1, 2, [3, 4, 5, [33, 21]]]
+// console.log("arr", arr);
+
+const flattenArray = (modArr) => {
+
+    // cloning arr to fnArr, later iterating it to add it in pool
+    let fnArr = [...modArr];
+
+    // iterating fnArr and add it in res if num else add in arrPool
+    let arrPool = [];
+
+    // add in resArr
+    let resArr = [];
+
+
+    while (!(fnArr.length ===0 ) || !(arrPool.length===0) ) {
+
+        // iterating once and 
+        if (fnArr.length != 0) {
+            arrPool.push(fnArr.shift());
+            continue;
+        }
+
+        let currItem = arrPool.shift();
+        if (!Array.isArray(currItem)) {
+            resArr.push(currItem);
+        } else {
+            arrPool.push(...currItem);
+        }
+
+    }
+    return resArr;
+}
+
+let kk = flattenArray(arr);
+console.log("**** ", kk);
+ */
