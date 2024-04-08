@@ -1,4 +1,5 @@
-// Queue Class
+````
+// Queue custom class
 class Queue {
     constructor() {
         this.items = [];
@@ -81,4 +82,4 @@ console.log("*** res",res) // ajkboahhlinaystar
 const strArr2 = ["abhi","kalastar"];
 let res2 = strManipulation(strArr2);
 console.log("*** res",res2) // akbahliastar
-
+````
