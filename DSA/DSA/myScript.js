@@ -361,3 +361,86 @@ LOGIC Ends
   
 //   console.log(deepclone(obj))
 
+
+
+/*
+
+             0 1  2 3  4 5 6 7
+int[] arr = [4,2,-5,5,-1,2,3,4,1]
+
+
+for(int i = 0; i < arr.length ; i++){
+     int idx = Math.abs(arr[i]);
+     ar[idx] = -arr[idx];  
+}
+
+------------------
+1....Find first missing integer
+------------------
+
+ [5,7,2,1,3,4,6]
+ 
+ 
+ [1,2,hh3,4,5,6,7]
+ 
+brute force
+sort - O(nlogn)  merge sort ya randomised quick sort  
+iteratuon and check difference of i & i+1...if greater than 1 then return that no i.,e...2
+
+- iterate,,,,match with index and get the number
+
+Find missing number 1-n
+                 0.  1.   2   3. 4   5.  6
+ Input: arr[] = {-1, -2, -4, -6, 3, -7, -8} , N = 8
+ 
+ O(n) + O(n) = 2O(n) = O(n)
+
+So in first iteration, make all index-1 number as negative.
+in second iteration, find positive number and check the index+1, that will be missing, as that number is not been -ve in the first iteration
+    
+ 
+ 
+ for(int i = 0; i < arr.length ; i++){
+     int idx = Math.abs(arr[i]);
+     ar[idx] = -arr[idx];  
+}
+
+ |||||| If Space complexity (we need check index) |||||| 
+
+
+ 0.  1.  2.  3   4. 5  6
+[-7, 4, 11, -6, 10, 5, 9] - 8
+high = 11
+low = 4
+
+
+
++++++++++++++++++++
+[3, 1, 5, 2, 6, 4]
+10 
+
+
+[1, 2, 3, 4, 5, 6]
+
+low = 3
+high = 5
+
+nlogn
+if space is allow, then use hashmap and chekc the difference
+
++++++++++++++++++++
+
+sliding window
+,
+abhisghjkhek
+
+ish
+
+
+
+
+
+
+
+
+*/
